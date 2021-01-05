@@ -2,8 +2,10 @@
 - hosts: NODES
 
   vars:
-    NODEMOUNT: /home/iwillnotmakeaname/nodemount
-    NODESHARE: //10.142.0.40/nodemount
+    USER: iwillnotmakeaname
+    SMBPASS: 07n3v88
+    NODEMOUNT: /home/iwillnotmakeaname/bscan
+    NODESHARE: //ED.IT.TH.IS/bscan
 
   tasks:
 
@@ -18,7 +20,7 @@
       package:
         name: cifs-utils
         state: latest
-    - name: Create the nodemount/ directory...
+    - name: Create the ~/bscan/ directory...
       file:
         path: "{{ NODEMOUNT }}"
         state: directory
@@ -28,21 +30,21 @@
         path: "{{ NODEMOUNT }}"
         src: "{{ NODESHARE }}"
         fstype: cifs
-        opts: rw,uid=1000,gid=1001,username=iwillnotmakeaname,password=passw0rd
+        opts: rw,uid=1000,gid=1001,username={{ USER }},password={{ SMBPASS }}
         state: mounted
 
 # Get massdns ready to rock
 
     - name: Copy massdns to local node...
       shell:
-        cmd: cp -rf ~/nodemount/tools/massdns ~/
+        cmd: cp -rf ~/bscan/tools/massdns ~/
         chdir: ~/
 
 # Get massdns ready to rock
 
     - name: Copy massdns to local node...
       shell:
-        cmd: cp -rf ~/nodemount/tools/massdns ~/
+        cmd: cp -rf ~/bscan/tools/massdns ~/
         chdir: ~/
 
 # Get dnsgen ready to rock
@@ -50,7 +52,7 @@
     - name: Copy dnsgen to local node...
       shell:
         cmd: "cp -rf dnsgen/ ~/"
-        chdir: ~/nodemount/tools
+        chdir: ~/bscan/tools
     - name: Install pip3...
       become: yes
       package:
@@ -64,11 +66,11 @@
       become: yes
       shell:
         cmd: "python3 setup.py install"
-        chdir: /home/iwillnotmakeaname/dnsgen
+        chdir: /home/{{ USER }}/dnsgen
 
 # Copy over noderunfreshdomains.sh script
 
     - name: Copy nodesrunfreshdomains.sh script over...
       shell:
         cmd: cp nodesrunfreshdomains.sh ~/runfreshdomains.sh
-        chdir: ~/nodemount/data/node/scripts/
+        chdir: ~/bscan/data/node/scripts/

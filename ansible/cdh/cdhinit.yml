@@ -1,0 +1,36 @@
+--- 
+- hosts: CDH
+
+  vars:
+    USER: iwillnotmakeaname
+    SMBPASS: 07n3v88
+    BSCANMOUNT: /home/iwillnotmakeaname/bscan
+
+  tasks:
+
+    - name: Updating CDH node...
+      become: yes
+      package:
+        update_cache: yes
+
+    - name: Installing samba...
+      become: yes
+      package:
+        name: samba
+        state: latest
+
+    - name: Append configuration to smb.conf...
+      become: yes
+      shell:
+        cmd: cat smbconf.txt >> /etc/samba/smb.conf
+        chdir: ~/bscan/ansible/cdh
+
+    - name: Create smb user...
+      become: yes
+      shell: (echo '{{ SMBPASS }}'; echo '{{ SMBPASS }}') | smbpasswd -s -a {{ USER }}
+
+    - name: Restart smbd.service...
+      become: yes
+      shell:
+        cmd: systemctl restart smbd.service
+        chdir: ~/
