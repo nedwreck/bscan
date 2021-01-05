@@ -15,19 +15,19 @@ sort -R ~/bscan/data/dnsresolver/bigresolvers2.txt | tail -n 200 > massdnsresolv
 ./massdns/bin/massdns -r massdnsresolvers.txt -o S newfresh.txt \
 | sed 's/\s.*$//'                                               \
 | dnsgen -                                                      \
-| ./massdns/bin/massdns \
--r massdnsresolvers.txt \
--w newfreshlivedomains.txt \
--o S  &&\
+| ./massdns/bin/massdns 					\
+-r massdnsresolvers.txt 					\
+-w newfreshlivedomains.txt 					\
+-o S  								&&\
 
 # Sort massdns output
 sort newfreshlivedomains.txt | uniq > newfreshlivedomains2.txt &&\
 
 # Add this node's newfresh.txt to alreadyrundomains.txt
-cat newfresh.txt >> ~/bscan/data/massdns/alreadyrundomains.txt &&\
+cat newfresh.txt >> ~/bscan/data/thepit/alreadyrundomains.txt &&\
 
 # Add the massdnsoutput to freshlivedomains.txt
 # Currently only looking for cname records to avoid wildcard domain crap
 cat newfreshlivedomains2.txt | grep "CNAME" | cat > freshlivecname.txt &&\
 
-cat freshlivecname.txt >> ~/bscan/data/massdns/freshlivedomains.txt
+cat freshlivecname.txt >> ~/bscan/data/thepit/freshlivedomains.txt

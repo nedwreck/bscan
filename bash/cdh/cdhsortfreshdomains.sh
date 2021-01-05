@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Run this on the CDH at ~/bscan/data/massdns
-cd ~/bscan/data/massdns &&\
+# Run this on the CDH at ~/bscan/data/thepit
+cd ~/bscan/data/thepit &&\
 
 # Sort and uniq freshdomains.txt file
 touch freshdomains.txt &&\

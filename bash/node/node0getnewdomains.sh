@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cat ~/nodemount/data/massdns/newfreshaa > ~/newfresh.txt
-cat ~/nodemount/data/massdns/freshliveaa > ~/freshlive.txt
+cat ~/bscan/data/thepit/newfreshaa > ~/newfresh.txt &&\
+cat ~/bscan/data/thepit/freshliveaa > ~/freshlive.txt

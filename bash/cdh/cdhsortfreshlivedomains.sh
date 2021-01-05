@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ~/bscan/data/massdns &&\
+cd ~/bscan/data/thepit &&\
 
 # Sort out the freshlivedomains.txt file
 touch freshlivedomains.txt &&\
