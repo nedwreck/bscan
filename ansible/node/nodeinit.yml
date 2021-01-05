@@ -1,0 +1,74 @@
+---
+- hosts: NODES
+
+  vars:
+    NODEMOUNT: /home/iwillnotmakeaname/nodemount
+    NODESHARE: //10.142.0.40/nodemount
+
+  tasks:
+
+# Update and get the nodemount/ share mounted
+
+    - name: Updating node...
+      become: yes
+      package:
+        update_cache: yes
+    - name: Installing cifs-utils...
+      become: yes
+      package:
+        name: cifs-utils
+        state: latest
+    - name: Create the nodemount/ directory...
+      file:
+        path: "{{ NODEMOUNT }}"
+        state: directory
+    - name: Mount the nodemount folder...
+      become: yes
+      mount:
+        path: "{{ NODEMOUNT }}"
+        src: "{{ NODESHARE }}"
+        fstype: cifs
+        opts: rw,uid=1000,gid=1001,username=iwillnotmakeaname,password=passw0rd
+        state: mounted
+
+# Get massdns ready to rock
+
+    - name: Copy massdns to local node...
+      shell:
+        cmd: cp -rf ~/nodemount/tools/massdns ~/
+        chdir: ~/
+
+# Get massdns ready to rock
+
+    - name: Copy massdns to local node...
+      shell:
+        cmd: cp -rf ~/nodemount/tools/massdns ~/
+        chdir: ~/
+
+# Get dnsgen ready to rock
+
+    - name: Copy dnsgen to local node...
+      shell:
+        cmd: "cp -rf dnsgen/ ~/"
+        chdir: ~/nodemount/tools
+    - name: Install pip3...
+      become: yes
+      package:
+        name: python3-pip
+        state: latest
+    - name: Installing dnsgen requirements...
+      shell:
+        cmd: "pip3 install -r requirements.txt"
+        chdir: ~/dnsgen
+    - name:  Installing dnsgen...
+      become: yes
+      shell:
+        cmd: "python3 setup.py install"
+        chdir: /home/iwillnotmakeaname/dnsgen
+
+# Copy over noderunfreshdomains.sh script
+
+    - name: Copy nodesrunfreshdomains.sh script over...
+      shell:
+        cmd: cp nodesrunfreshdomains.sh ~/runfreshdomains.sh
+        chdir: ~/nodemount/data/node/scripts/
