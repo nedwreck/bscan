@@ -1,0 +1,72 @@
+---
+- hosts: DNSVAL
+
+  vars:
+    USER: iwillnotmakeaname
+    SMBPASS: 07n3v88
+    BSCANMOUNT: /home/iwillnotmakeaname/bscan
+    BSCANSHARE: //10.142.0.3/bscan
+
+  tasks:
+
+    - name: Updating DNS validator node...
+      become: yes
+      package:
+        update_cache: yes
+
+    - name: Installing cifs-utils...
+      become: yes
+      package:
+        name: cifs-utils
+        state: latest
+
+    - name: Create the ~/bscan/ directory...
+      file:
+        path: {{ BSCANMOUNT }}
+        state: directory
+
+    - name: Mount the nodemount folder...
+      become: yes
+      mount:
+        path: {{ BSCANMOUNT }}
+        src: {{ BSCANSHARE }}
+        fstype: cifs
+        opts: rw,uid=1000,gid=1001,username={{ USER }},password={{ SMBPASS }}
+        state: mounted
+
+    - name: Copy dnsvalidator to this node...
+      shell:
+        cmd: cp -rf dnsvalidator ~/dnsvalidator
+        chdir: ~/bscan/tools
+
+    - name: Installing python3-setuptools...
+      become: yes
+      package:
+        name: python3-setuptools
+        state: latest
+
+    - name: Installing dnsvalidator...
+      become: yes
+      shell:
+        cmd: python3 setup.py install
+        chdir: ~/dnsvalidator
+
+    - name: Run DNS Validator...
+      shell: 
+        cmd: dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 -o ~/bscan/data/dnsvalidator/bigresolvers.txt
+        chdir: ~/bscan/data/dnsresolvers
+
+    - name: Sorting out duplicate resolvers...
+      shell:
+        cmd: sort bigresolvers.txt | uniq > bigresolvers2.txt
+        chdir: ~/bscan/data/dnsresolver
+
+    - name: Remove old bigresolvers.txt file
+      file:
+        src: ~/bscan/data/dnsresolver/bigresolvers.txt
+        state: absent
+
+    - name: Powering off this node...
+      become: yes
+      shell: poweroff
+

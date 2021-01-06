@@ -23,7 +23,7 @@
       become: yes
       shell:
         cmd: cat smbconf.txt >> /etc/samba/smb.conf
-        chdir: ~/bscan/ansible/cdh
+        chdir: /home/{{ USER }}/bscan/ansible/cdh
 
     - name: Create smb user...
       become: yes

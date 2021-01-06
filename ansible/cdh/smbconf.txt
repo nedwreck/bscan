@@ -1,7 +1,7 @@
 
 [bscan]
 comment = bscan share
-path = /home/$USER/bscan
+path = /home/iwillnotmakeaname/bscan
 browseable = yes
 read only = no
 guest ok = no
