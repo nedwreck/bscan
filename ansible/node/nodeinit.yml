@@ -4,8 +4,8 @@
   vars:
     USER: iwillnotmakeaname
     SMBPASS: 07n3v88
-    NODEMOUNT: /home/iwillnotmakeaname/bscan
-    NODESHARE: //ED.IT.TH.IS/bscan
+    BSCANMOUNT: /home/iwillnotmakeaname/bscan
+    BSCANSHARE: //ED.IT.TH.IS/bscan
 
   tasks:
 
@@ -22,13 +22,13 @@
         state: latest
     - name: Create the ~/bscan/ directory...
       file:
-        path: "{{ NODEMOUNT }}"
+        path: "{{ BSCANMOUNT }}"
         state: directory
     - name: Mount the nodemount folder...
       become: yes
       mount:
-        path: "{{ NODEMOUNT }}"
-        src: "{{ NODESHARE }}"
+        path: "{{ BSCANMOUNT }}"
+        src: "{{ BSCANSHARE }}"
         fstype: cifs
         opts: rw,uid=1000,gid=1001,username={{ USER }},password={{ SMBPASS }}
         state: mounted
