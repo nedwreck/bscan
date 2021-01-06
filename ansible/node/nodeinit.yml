@@ -51,7 +51,7 @@
 
     - name: Copy dnsgen to local node...
       shell:
-        cmd: "cp -rf dnsgen/ ~/"
+        cmd: "cp -rf dnsgen ~/"
         chdir: ~/bscan/tools
     - name: Install pip3...
       become: yes
