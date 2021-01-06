@@ -22,14 +22,14 @@
 
     - name: Create the ~/bscan/ directory...
       file:
-        path: {{ BSCANMOUNT }}
+        path: "{{ BSCANMOUNT }}"
         state: directory
 
     - name: Mount the nodemount folder...
       become: yes
       mount:
-        path: {{ BSCANMOUNT }}
-        src: {{ BSCANSHARE }}
+        path: "{{ BSCANMOUNT }}"
+        src: "{{ BSCANSHARE }}"
         fstype: cifs
         opts: rw,uid=1000,gid=1001,username={{ USER }},password={{ SMBPASS }}
         state: mounted
