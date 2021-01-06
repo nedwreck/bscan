@@ -73,4 +73,4 @@
     - name: Copy nodesrunfreshdomains.sh script over...
       shell:
         cmd: cp nodesrunfreshdomains.sh ~/runfreshdomains.sh
-        chdir: ~/bscan/data/node/scripts/
+        chdir: ~/bscan/data/node/
