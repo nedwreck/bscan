@@ -49,21 +49,21 @@
       become: yes
       shell:
         cmd: python3 setup.py install
-        chdir: ~/dnsvalidator
+        chdir: /home/{{ USER }}/dnsvalidator
 
     - name: Run DNS Validator...
       shell: 
         cmd: dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 -o ~/bscan/data/dnsvalidator/bigresolvers.txt
-        chdir: ~/bscan/data/dnsresolvers
+        chdir: ~/bscan/data/dnsvalidator
 
     - name: Sorting out duplicate resolvers...
       shell:
         cmd: sort bigresolvers.txt | uniq > bigresolvers2.txt
-        chdir: ~/bscan/data/dnsresolver
+        chdir: ~/bscan/data/dnsvalidator
 
     - name: Remove old bigresolvers.txt file
       file:
-        src: ~/bscan/data/dnsresolver/bigresolvers.txt
+        src: ~/bscan/data/dnsvalidator/bigresolvers.txt
         state: absent
 
     - name: Powering off this node...
