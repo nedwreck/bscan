@@ -1,0 +1,76 @@
+---
+- hosts: NODES
+
+  vars:
+    USER: iwillnotmakeaname
+    SMBPASS: 07n3v88
+    NODEMOUNT: /home/iwillnotmakeaname/bscan
+    NODESHARE: //ED.IT.TH.IS/bscan
+
+  tasks:
+
+# Update and get the nodemount/ share mounted
+
+    - name: Updating node...
+      become: yes
+      package:
+        update_cache: yes
+    - name: Installing cifs-utils...
+      become: yes
+      package:
+        name: cifs-utils
+        state: latest
+    - name: Create the ~/bscan/ directory...
+      file:
+        path: "{{ NODEMOUNT }}"
+        state: directory
+    - name: Mount the nodemount folder...
+      become: yes
+      mount:
+        path: "{{ NODEMOUNT }}"
+        src: "{{ NODESHARE }}"
+        fstype: cifs
+        opts: rw,uid=1000,gid=1001,username={{ USER }},password={{ SMBPASS }}
+        state: mounted
+
+# Get massdns ready to rock
+
+    - name: Copy massdns to local node...
+      shell:
+        cmd: cp -rf ~/bscan/tools/massdns ~/
+        chdir: ~/
+
+# Get massdns ready to rock
+
+    - name: Copy massdns to local node...
+      shell:
+        cmd: cp -rf ~/bscan/tools/massdns ~/
+        chdir: ~/
+
+# Get dnsgen ready to rock
+
+    - name: Copy dnsgen to local node...
+      shell:
+        cmd: "cp -rf dnsgen/ ~/"
+        chdir: ~/bscan/tools
+    - name: Install pip3...
+      become: yes
+      package:
+        name: python3-pip
+        state: latest
+    - name: Installing dnsgen requirements...
+      shell:
+        cmd: "pip3 install -r requirements.txt"
+        chdir: ~/dnsgen
+    - name:  Installing dnsgen...
+      become: yes
+      shell:
+        cmd: "python3 setup.py install"
+        chdir: /home/{{ USER }}/dnsgen
+
+# Copy over noderunfreshdomains.sh script
+
+    - name: Copy nodesrunfreshdomains.sh script over...
+      shell:
+        cmd: cp nodesrunfreshdomains.sh ~/runfreshdomains.sh
+        chdir: ~/bscan/data/node/scripts/

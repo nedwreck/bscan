@@ -1,0 +1,7 @@
+
+[bscan]
+comment = bscan share
+path = /home/$USER/bscan
+browseable = yes
+read only = no
+guest ok = no

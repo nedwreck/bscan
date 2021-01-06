@@ -1,0 +1,34 @@
+---
+- hosts: CDH
+
+  tasks:
+
+    - name: Copy dnsvalidator to this node...
+      shell:
+        cmd: cp -rf dnsvalidator ~/dnsvalidator
+        chdir: ~/bscan/tools
+
+    - name: Installing python3-setuptools...
+      become: yes
+      package:
+        name: python3-setuptools
+        state: latest
+
+    - name: Installing dnsvalidator...
+      become: yes
+      shell:
+        cmd: "python3 setup.py install"
+        chdir: ~/dnsvalidator
+
+    - name: Run DNS Validator...
+      shell: "dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 -o ~/bscan/data/dnsresolver/bigresolvers.txt"
+
+    - name: Sorting out duplicate resolvers...
+      shell:
+        cmd: sort bigresolvers.txt | uniq > bigresolvers2.txt
+        chdir: ~/bscan/data/dnsresolver
+
+    - name: Remove old bigresolvers.txt file
+      file:
+        src: ~/bscan/data/dnsresolver/bigresolvers.txt
+        state: absent

@@ -1,0 +1,18 @@
+---
+- hosts: CDH
+
+  tasks:
+
+    - name: Have CDH run its initial sorting script...
+      shell:
+        cmd: ./sortfreshdomains.sh
+        chdir: ~/
+
+- hosts: NODES
+
+  tasks:
+
+    - name: Have the nodes run their initial massdns/dnsgen script...
+      shell:
+        cmd: ./runfreshdomains.sh
+        chdir: ~/
