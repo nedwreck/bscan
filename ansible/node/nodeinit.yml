@@ -20,10 +20,18 @@
       package:
         name: cifs-utils
         state: latest
+
+    - name: Check if bscan directory exists...
+      stat:
+        path: "{{ BSCANMOUNT }}"
+        register: bscan_folder
+
     - name: Create the ~/bscan/ directory...
       file:
         path: "{{ BSCANMOUNT }}"
         state: directory
+        mode: '0755'
+        when: bscan_folder.stat.exists == false
     - name: Mount the nodemount folder...
       become: yes
       mount:
@@ -74,3 +82,16 @@
       shell:
         cmd: cp nodesrunfreshdomains.sh ~/runfreshdomains.sh
         chdir: ~/bscan/data/node/
+
+    - name: Copy nodesrunfreshdomains.sh script over...
+      shell:
+        cmd: cp nodesdigdomains.sh ~/digdomains.sh
+        chdir: ~/bscan/data/node/
+
+
+    - name: Copy nodesrunfreshdomains.sh script over...
+      shell:
+        cmd: cp nodescurldomains.sh ~/curldomains.sh
+        chdir: ~/bscan/data/node/
+
+

@@ -53,18 +53,10 @@ rm cnamedomains.txt &&\
 cat cnamerecords5.txt | sed 's/.* //' >> cnamedomains.txt &&\
 sort cnamedomains.txt | cat > cnamedomains1.txt &&\
 cat cnamedomains1.txt | uniq > cnamedomains2.txt &&\
+split -n l/5 cnamedomains2.txt digdomains &&\
 
-for domain in $(cat cnamedomains2.txt); do
-dig $domain | cat > digoutput.txt &&\
-        if grep -q "status: NXDOMAIN" digoutput.txt; then
-                echo $domain >> nxdomain.txt
-        fi
-done
 
-touch nxdomain.txt &&\
-mv -f nxdomain.txt nxdomain1.txt &&\
-sort nxdomain1.txt | cat > nxdomain2.txt &&\
-cat nxdomain2.txt | uniq > nxdomain_current.txt &&\
+
 
 rm -f cnamesub1.txt &&\
 for domain in $(cat nxdomain_current.txt); do
