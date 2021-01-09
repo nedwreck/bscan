@@ -66,6 +66,11 @@
       package:
         name: python3-pip
         state: latest
+    - name: Install python dependency stuff...
+      become: yes
+      shell:
+        cmd: pip3 install idna==2.7
+        chdir: ~/
     - name: Installing dnsgen requirements...
       shell:
         cmd: "pip3 install -r requirements.txt"
@@ -81,17 +86,16 @@
     - name: Copy nodesrunfreshdomains.sh script over...
       shell:
         cmd: cp nodesrunfreshdomains.sh ~/runfreshdomains.sh
-        chdir: ~/bscan/data/node/
+        chdir: ~/bscan/bash/node/
 
-    - name: Copy nodesrunfreshdomains.sh script over...
+    - name: Copy nodesdigdomains.sh script over...
       shell:
         cmd: cp nodesdigdomains.sh ~/digdomains.sh
-        chdir: ~/bscan/data/node/
+        chdir: ~/bscan/bash/node/
 
-
-    - name: Copy nodesrunfreshdomains.sh script over...
+    - name: Copy nodescurldomains.sh script over...
       shell:
         cmd: cp nodescurldomains.sh ~/curldomains.sh
-        chdir: ~/bscan/data/node/
+        chdir: ~/bscan/bash/node/
 
 
