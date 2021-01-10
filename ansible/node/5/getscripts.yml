@@ -1,0 +1,28 @@
+---
+- hosts: NODE5
+
+  vars: 
+    NODENUMBER: 5
+
+  tasks:
+
+    - name: Copy over this node's script for newfreshdomains...
+      shell:
+        cmd: cp getfreshdomains.sh ~/newfresh.sh
+        chdir: ~/bscan/bash/node/{{ NODENUMBER }}
+
+    - name: Copy over this node's script for freshlivedomains...
+      shell:
+        cmd: cp getfreshlivedomains.sh ~/freshlive.sh
+        chdir: ~/bscan/bash/node/{{ NODENUMBER }}
+
+    - name: Copy over this node's script for digdomains...
+      shell:
+        cmd: cp getdigdomains.sh ~/getdigdomains.sh
+        chdir: ~/bscan/bash/node/{{ NODENUMBER }}
+
+    - name: Copy over this node's script for freshlivedomains...
+      shell:
+        cmd: cp getcurldomains.sh ~/getcurldomains.sh
+        chdir: ~/bscan/bash/node/{{ NODENUMBER }}
+
