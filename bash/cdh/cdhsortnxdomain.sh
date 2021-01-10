@@ -9,11 +9,14 @@ cd ~/bscan/data/thepit &&\
 sort nxdomain.txt | cat > nxdomain1.txt &&\
 cat nxdomain1.txt | uniq > nxdomiain2.txt &&\
 
+touch cnamesub1.txt &&\
 rm -f cnamesub1.txt &&\
+touch nxdomain2.txt &&\
 for domain in $(cat nxdomain2.txt); do
         cat cnamerecords5.txt | grep $domain | cat > cnamesub.txt &&\
         cat cnamesub.txt | sed 's/\s.*$//' >> cnamesub1.txt
 done
 
 rm -f curldomainsa* &&\
+touch cnamesub1.txt &&\
 split -n l/16 cnamesub1.txt curldomains

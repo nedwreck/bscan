@@ -7,6 +7,7 @@ cd ~/ &&\
 
 touch cnamesub404.txt &&\
 rm cnamesub404.txt &&\
+touch curldomains.txt &&\
 for domain in $(cat curldomains.txt); do
 	curl -s --head --connect-timeout 9 --request GET $domain > cnamesubcurl.txt &&\
 	if grep -q "404" cnamesubcurl.txt; then
@@ -15,9 +16,10 @@ for domain in $(cat curldomains.txt); do
 done
 
 # Get resolvers.txt for massdns
-sort -R ~/bscan/data/dnsresolver/bigresolvers2.txt | tail -n 200 > massdnsresolvers.txt &&\
+sort -R ~/bscan/data/dnsvalidator/bigresolvers2.txt | tail -n 200 > massdnsresolvers.txt &&\
 
 # Running massdns on cname subdomains with 404 response
 ./massdns/bin/massdns -r massdnsresolvers.txt -w sub404records.txt -o S cnamesub404.txt &&\
 
+touch sub404records.txt &&\
 sort sub404records.txt | uniq >> ~/bscan/data/thepit/sub404.txt
