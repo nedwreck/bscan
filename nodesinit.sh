@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd ~/bscan/ansible &&\
-ansible-playbook node/nodeinit.yml
+ansible-playbook node/nodeinit.yml &&\
 
 # Have each node copy it's particular script over for getting a newfreshdomains split
 ansible-playbook node/0/getscripts.yml &&\
