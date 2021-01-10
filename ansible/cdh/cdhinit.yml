@@ -35,7 +35,7 @@
         cmd: systemctl restart smbd.service
         chdir: ~/
 
-    - name: Copy over sortfreshdomains.sh...
-      shell:
-        cmd: cp cdhsortfreshdomains.sh ~/sortfreshdomains.sh
-        chdir: ~/bscan/bash/cdh
+#    - name: Copy over sortfreshdomains.sh...
+#      shell:
+#        cmd: cp cdhsortfreshdomains.sh ~/sortfreshdomains.sh
+#        chdir: ~/bscan/bash/cdh

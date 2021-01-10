@@ -39,4 +39,4 @@ sort -R newfreshdomains.txt | cat > newfreshdomainsrand.txt &&\
 cat newfreshdomainsrand.txt | tail -n 1000 > newfresh500.txt &&\
 
 rm -f newfresha* &&\
-split -n l/5 newfresh500.txt newfresh
+split -n l/16 newfresh500.txt newfresh

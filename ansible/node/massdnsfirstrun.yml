@@ -5,8 +5,8 @@
 
     - name: Have CDH run its initial sorting script...
       shell:
-        cmd: ./sortfreshdomains.sh
-        chdir: ~/
+        cmd: ./cdhsortfreshdomains.sh
+        chdir: ~/bscan/bash/cdh
 
 - hosts: NODES
 

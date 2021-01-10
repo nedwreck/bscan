@@ -16,4 +16,4 @@ for domain in $(cat nxdomain2.txt); do
 done
 
 rm -f curldomainsa* &&\
-split -n l/5 cnamesub1.txt curldomains
+split -n l/16 cnamesub1.txt curldomains
