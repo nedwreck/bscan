@@ -1,4 +1,5 @@
 #!/bin/sh
 
 cd ~/bscan/ansible &&\
-ansible-playbook node/massdnsfirstrun.yml 
+ansible-playbook node/massdnsfirstrun.yml  &&\
+

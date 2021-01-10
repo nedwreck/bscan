@@ -1,0 +1,61 @@
+---
+- hosts: CDH
+
+  tasks:
+
+    - name: Sorting the fresh live domains...
+      shell:
+        cmd: ./cdhsortfreshlivedomains.sh
+        chdir: ~/bscan/bash/cdh
+
+- hosts: NODES
+
+  tasks:
+
+    - name: Have nodes dig up cname domain records to look for nxdomain...
+      shell:
+        cmd: ./digdomains.sh
+        chdir: ~/
+
+- hosts: CDH
+
+  tasks:
+
+    - name: Sort the nxdomain file and get the subdomains of nxdomain cnames...
+      shell:
+        cmd: ./cdhsortnxdomain.sh
+        chdir: ~/bscan/bash/cdh
+
+- hosts: NODES
+
+  tasks:
+
+    - name: Have nodes send curl GET requests on the subdomains of nxdomains...
+      shell:
+        cmd: ./curldomains.sh
+        chdir: ~/
+
+- hosts: CDH
+
+  tasks:
+
+    - name: Sort the sub404.txt file...
+      shell: 
+        cmd: sort sub404.txt | uniq > sub404_current.txt
+        chdir: ~/bscan/data/thepit
+
+    - name: Save the sub404.txt findings...
+      shell:
+        cmd: sort sub404.txt | uniq >> sub404_all.txt
+        chdir: ~/bscan/data/thepit
+
+    - name: Sorting the save...
+      shell:
+        cmd: sort sub404.txt | uniq > sub404_all1.txt
+        chdir: ~/bscan/data/thepit
+
+    - name: Save the sort...
+      shell:
+        cmd: cat sub404_all1.txt > sub404_all.txt
+        chdir: ~/bscan/data/thepit
+
