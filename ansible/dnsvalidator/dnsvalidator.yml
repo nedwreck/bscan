@@ -5,7 +5,7 @@
     USER: iwillnotmakeaname
     SMBPASS: 07n3v88
     BSCANMOUNT: /home/iwillnotmakeaname/bscan
-    BSCANSHARE: //10.142.0.3/bscan
+    BSCANSHARE: //10.142.0.6/bscan
 
   tasks:
 

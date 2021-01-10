@@ -7,7 +7,7 @@ cd ~/ &&\
 ./newfresh.sh &&\
 
 # Get resolvers.txt for massdns
-sort -R ~/bscan/data/dnsresolver/bigresolvers2.txt | tail -n 200 > massdnsresolvers.txt &&\
+sort -R ~/bscan/data/dnsvalidator/bigresolvers2.txt | tail -n 200 > massdnsresolvers.txt &&\
 
 # Running massdns on fresh domains
 # Strip massdns output of record type and IP and feed that into dnsgen

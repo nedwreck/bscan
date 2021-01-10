@@ -19,5 +19,5 @@ ansible-playbook node/11/getscripts.yml &&\
 ansible-playbook node/12/getscripts.yml &&\
 ansible-playbook node/13/getscripts.yml &&\
 ansible-playbook node/14/getscripts.yml &&\
-ansible-playbook node/15/getscripts.yml &&\
+ansible-playbook node/15/getscripts.yml
 
