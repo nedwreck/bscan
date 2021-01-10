@@ -1,11 +1,20 @@
 ---
+- hosts: CDH
+
+  tasks:
+
+    - name: Share ssh keys with all nodes...
+      shell:
+        cmd: ./sshcopyid.sh
+        chdir: ~/bscan/bash/node
+
 - hosts: NODES
 
   vars:
     USER: iwillnotmakeaname
     SMBPASS: 07n3v88
     BSCANMOUNT: /home/iwillnotmakeaname/bscan
-    BSCANSHARE: //ED.IT.TH.IS/bscan
+    BSCANSHARE: //10.142.0.6/bscan
 
   tasks:
 
@@ -24,14 +33,14 @@
     - name: Check if bscan directory exists...
       stat:
         path: "{{ BSCANMOUNT }}"
-        register: bscan_folder
+      register: bscan_folder
 
     - name: Create the ~/bscan/ directory...
       file:
         path: "{{ BSCANMOUNT }}"
         state: directory
         mode: '0755'
-        when: bscan_folder.stat.exists == false
+      when: bscan_folder.stat.exists == false
     - name: Mount the nodemount folder...
       become: yes
       mount:
