@@ -36,17 +36,22 @@
         name: dnsutils
         state: latest
 
-    - name: Check if bscan directory exists...
-      stat:
-        path: "{{ BSCANMOUNT }}"
-      register: bscan_folder
+    - name: Remove any old bscan/ folder...
+      file:
+        path: ~/bscan
+        state: absent
+
+#    - name: Check if bscan directory exists...
+#      stat:
+#        path: "{{ BSCANMOUNT }}"
+#      register: bscan_folder
 
     - name: Create the ~/bscan/ directory...
       file:
         path: "{{ BSCANMOUNT }}"
         state: directory
         mode: '0755'
-      when: bscan_folder.stat.exists == false
+#      when: bscan_folder.stat.exists == false
     - name: Mount the nodemount folder...
       become: yes
       mount:
