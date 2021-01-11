@@ -61,25 +61,3 @@ cat cnamerecords5.txt | sed 's/.* //' >> cnamedomains.txt &&\
 sort cnamedomains.txt | cat > cnamedomains1.txt &&\
 cat cnamedomains1.txt | uniq > cnamedomains2.txt &&\
 split -n l/16 cnamedomains2.txt digdomains
-
-
-
-
-#rm -f cnamesub1.txt &&\
-#for domain in $(cat nxdomain_current.txt); do
-#        cat cnamerecords5.txt | grep $domain | cat > cnamesub.txt &&\
-#        cat cnamesub.txt | sed 's/\s.*$//' >> cnamesub1.txt
-#done
-#
-#touch cnamesub404.txt &&\
-#rm cnamesub404.txt &&\
-#for domain in $(cat cnamesub1.txt); do
-#curl -s --head --connect-timeout 9 --request GET $domain > cnamesubcurl.txt &&\
-#        if grep -q "404" cnamesubcurl.txt; then
-#                echo $domain >> cnamesub404.txt
-#        fi
-#done
-#
-#touch cnamesub404.txt &&\
-#sort cnamesub404.txt | cat > cnamesub4041.txt &&\
-#cat cnamesub4041.txt | uniq > cnamesub404_current.txt
