@@ -4,7 +4,7 @@
 
 cd ~/ &&\
 
-./newfresh.sh &&\
+# ./newfresh.sh &&\
 
 # Get resolvers.txt for massdns
 sort -R ~/bscan/data/dnsvalidator/bigresolvers2.txt | tail -n 200 > massdnsresolvers.txt &&\

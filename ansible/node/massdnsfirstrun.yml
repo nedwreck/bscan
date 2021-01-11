@@ -12,6 +12,11 @@
 
   tasks:
 
+    - name: Get fresh domains list to work with...
+      shell:
+        cmd: ./newfresh.sh
+        chdir: ~/
+
     - name: Have the nodes run their initial massdns/dnsgen script...
       shell:
         cmd: ./runfreshdomains.sh

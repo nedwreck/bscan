@@ -31,6 +31,7 @@
         state: latest
 
     - name: Installing dig...
+      become: yes
       package:
         name: dnsutils
         state: latest
@@ -54,13 +55,6 @@
         fstype: cifs
         opts: rw,uid=1000,gid=1001,username={{ USER }},password={{ SMBPASS }}
         state: mounted
-
-# Get massdns ready to rock
-
-    - name: Copy massdns to local node...
-      shell:
-        cmd: cp -rf ~/bscan/tools/massdns ~/
-        chdir: ~/
 
 # Get massdns ready to rock
 
