@@ -10,7 +10,7 @@ rm -f nxdomain.txt &&\
 for domain in $(cat digdomains.txt); do
 	dig $domain | cat > digoutput.txt &&\
 	if grep -q "status: NXDOMAIN" digoutput.txt; then
-		echo $domain >> nxdomain.txt
+		echo "$domain" >> nxdomain.txt
 	fi
 done
 

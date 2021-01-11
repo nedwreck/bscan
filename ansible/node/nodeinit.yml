@@ -30,6 +30,11 @@
         name: cifs-utils
         state: latest
 
+    - name: Installing dig...
+      package:
+        name: dnsutils
+        state: latest
+
     - name: Check if bscan directory exists...
       stat:
         path: "{{ BSCANMOUNT }}"

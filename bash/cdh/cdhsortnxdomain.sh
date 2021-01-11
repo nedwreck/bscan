@@ -6,13 +6,18 @@
 
 cd ~/bscan/data/thepit &&\
 
-sort nxdomain.txt | cat > nxdomain1.txt &&\
-cat nxdomain1.txt | uniq > nxdomiain2.txt &&\
+mv -f nxdomain.txt nxdomain1.txt &&\
+sort nxdomain1.txt | cat > nxdomain2.txt &&\
+cat nxdomain2.txt | uniq > nxdomiain3.txt &&\
+cat nxdomain3.txt >> nxdomain_all.txt &&\
+
+sort nxdomain_all.txt | cat > nxdomain_all1.txt &&\
+cat nxdomain_all1.txt | uniq > nxdomain_all2.txt &&\
 
 touch cnamesub1.txt &&\
 rm -f cnamesub1.txt &&\
-touch nxdomain2.txt &&\
-for domain in $(cat nxdomain2.txt); do
+touch nxdomain3.txt &&\
+for domain in $(cat nxdomain3.txt); do
         cat cnamerecords5.txt | grep $domain | cat > cnamesub.txt &&\
         cat cnamesub.txt | sed 's/\s.*$//' >> cnamesub1.txt
 done

@@ -28,6 +28,7 @@
 	Put all of the ip addresses into file ansible/node/nodeip.txt for ssh-copy-id 
 05: Get the cdh initialized
 	screen -S cdhinit ansible-playbook cdh/cdhinit.sh
+	Configure VPC network firewall settings to allow port 445 for samba
 06: Run the dns validator:
 	This script is NOT idempotent and needs to have a fresh instance fired up for each
 	attempt

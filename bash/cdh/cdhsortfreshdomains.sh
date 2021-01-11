@@ -19,7 +19,7 @@ sort alreadyrundomains1.txt | cat > alreadyrundomains2.txt &&\
 cat alreadyrundomains2.txt | uniq >> alreadyrundomains3.txt &&\
 sort alreadyrundomains3.txt | cat > alreadyrundomains4.txt &&\
 cat alreadyrundomains4.txt | uniq > alreadyrundomains5.txt &&\
-cat alreadyrundomains5.txt > alreadyrundomains3.txt
+cat alreadyrundomains5.txt > alreadyrundomains3.txt &&\
 
 
 ####
@@ -36,7 +36,7 @@ cat potentialdomains1.txt | uniq -u > newfreshdomains.txt &&\
 # Get a list of potential domains ready to run through massdns
 
 sort -R newfreshdomains.txt | cat > newfreshdomainsrand.txt &&\
-cat newfreshdomainsrand.txt | tail -n 1000 > newfresh500.txt &&\
+cat newfreshdomainsrand.txt | tail -n 16000 > newfresh500.txt &&\
 
 rm -f newfresha* &&\
 split -n l/16 newfresh500.txt newfresh
