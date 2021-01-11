@@ -19,6 +19,7 @@ done
 sort -R ~/bscan/data/dnsvalidator/bigresolvers2.txt | tail -n 200 > massdnsresolvers.txt &&\
 
 # Running massdns on cname subdomains with 404 response
+touch cnamesub404.txt &&\
 ./massdns/bin/massdns -r massdnsresolvers.txt -w sub404records.txt -o S cnamesub404.txt &&\
 
 touch sub404records.txt &&\

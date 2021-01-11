@@ -1,5 +1,7 @@
 #!/bin/sh
 
 cd ~/bscan/ansible &&\
-ansible-playbook node/massdnsfirstrun.yml
+while :; do
+ansible-playbook node/massdnsfirstrun.yml && sleep 10;
+done
 

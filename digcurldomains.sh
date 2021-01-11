@@ -1,4 +1,6 @@
 #!/bin/sh
 
 cd ~/bscan/ansible &&\
-ansible-playbook node/digcurldomains.yml
+while :; do
+ansible-playbook node/digcurldomains.yml && sleep 10;
+done
